@@ -1,8 +1,8 @@
 *.db
 *.py[cod]
+.env
+.ruff_cache/
 .venv/
 .web
 __pycache__/
 assets/external/
-.ruff_cache/
-.env
