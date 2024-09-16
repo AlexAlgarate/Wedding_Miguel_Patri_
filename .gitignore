@@ -2,8 +2,6 @@
 *.py[cod]
 .env
 .ruff_cache/
-.env
-.ruff_cache/
 .venv/
 .web
 __pycache__/
