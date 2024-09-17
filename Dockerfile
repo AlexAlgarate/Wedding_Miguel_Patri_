@@ -1,7 +1,7 @@
 FROM python:3.11
 
 WORKDIR /app
-COPY .env .
+# COPY .env .
 COPY . .
 
 
