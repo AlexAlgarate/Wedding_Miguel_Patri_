@@ -188,5 +188,7 @@ supabase_name_columns = [
 ]
 
 supabase_table_name = "wedding_invitations"
-toast_accepts_invitation = "¡Genial! ¡Te esperamos en el día más importante de nuestras vidas"
+toast_accepts_invitation = (
+    "¡Genial! ¡Te esperamos en el día más importante de nuestras vidas"
+)
 toast_decline_invitation = "¿Estás segura? Si cambias de idea háznoslo saber por favor."
