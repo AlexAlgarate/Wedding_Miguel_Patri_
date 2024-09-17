@@ -10,6 +10,7 @@ jobs:
     if: github.repository == 'AlexAlgarate/Wedding_Miguel_Patri_'
     runs-on: ubuntu-latest
     environment: production
+    
     permissions:
       contents: write
     env:
