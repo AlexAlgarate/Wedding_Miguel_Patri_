@@ -102,20 +102,20 @@ gift_text = """
     pero si nos queréis hacer una aportacion para ayudarnos a celebrar,
     este es nuestro número de cuenta
 """
-account_number_text = os.getenv("ACCOUNT_NUMBER")
+account_number_text = os.environ["ACCOUNT_NUMBER"]
 
 
 # Contact
 contact_title = "Contacta con nosotros"
 contact_bride = dict(
     name="Patri",
-    email=os.getenv("PATRI_EMAIL"),
-    phone_number=os.getenv("PATRI_PHONE"),
+    email=os.environ["PATRI_EMAIL"],
+    phone_number=os.environ["PATRI_PHONE"],
 )
 contact_groom = dict(
     name="Miguel",
-    email=os.getenv("MIGUEL_EMAIL"),
-    phone_number=os.getenv("MIGUEL_PHONE"),
+    email=os.environ["MIGUEL_EMAIL"],
+    phone_number=os.environ["MIGUEL_PHONE"],
 )
 contact_text_whatsapp = """
 Ponte en contacto con nosotros a través de Whatsapp haciendo click directamente en el botón
@@ -188,7 +188,5 @@ supabase_name_columns = [
 ]
 
 supabase_table_name = "wedding_invitations"
-toast_accepts_invitation = (
-    "¡Genial! ¡Te esperamos en el día más importante de nuestras vidas"
-)
+toast_accepts_invitation = "¡Genial! ¡Te esperamos en el día más importante de nuestras vidas"
 toast_decline_invitation = "¿Estás segura? Si cambias de idea háznoslo saber por favor."

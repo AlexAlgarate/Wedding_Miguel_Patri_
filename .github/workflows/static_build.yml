@@ -16,6 +16,7 @@ jobs:
       ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
       PATRI_PHONE: ${{ secrets.PATRI_PHONE }}
       PATRI_EMAIL: ${{ secrets.PATRI_EMAIL }}
+      MIGUEL_EMAIL: ${{ secrets.PATRI_EMAIL }}
       MIGUEL_PHONE: ${{ secrets.MIGUEL_PHONE }}
       POSTGRES_PASSWORD_SUPABASE: ${{ secrets.POSTGRES_PASSWORD_SUPABASE }}
       SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
