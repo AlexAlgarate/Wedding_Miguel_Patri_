@@ -1,5 +1,10 @@
 FROM python:3.11
 
+# RUN apt-get update && apt-get install -y curl \
+#     && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+#     && apt-get install -y nodejs \
+#     && npm install -g npm
+
 WORKDIR /app
 # COPY .env .
 COPY . .
@@ -12,4 +17,5 @@ RUN python3.11 -m venv $VIRTUAL_ENV
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN reflex init
 CMD reflex run --env prod --backend-only

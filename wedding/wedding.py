@@ -12,4 +12,9 @@ app = rx.App(
 )
 
 
+def hello():
+    return "hello"
+
+
+app.api.add_api_route("/hello", hello)
 app.add_page(index)
