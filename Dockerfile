@@ -31,8 +31,11 @@ WORKDIR /app
 
 # Copy local context to `/app` inside container (see .dockerignore)
 COPY . .
-
+ENV VIRTUAL_ENV=/app/.venv_docker
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN python3.11 -m venv $VIRTUAL_ENV
 # Install app requirements and reflex in the container
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Deploy templates and prepare app
