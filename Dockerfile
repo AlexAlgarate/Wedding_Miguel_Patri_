@@ -40,9 +40,9 @@ RUN pip install -r requirements.txt
 
 # Deploy templates and prepare app
 RUN reflex init
-
+RUN reflex run --env prod --backend-only
 # Download all npm dependencies and compile frontend
-RUN reflex export --frontend-only --no-zip && mv .web/_static/* /srv/ && rm -rf .web
+# RUN reflex export --frontend-only --no-zip && mv .web/_static/* /srv/ && rm -rf .web
 
 # Needed until Reflex properly passes SIGTERM on backend.
 STOPSIGNAL SIGKILL
