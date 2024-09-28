@@ -1,4 +1,8 @@
-var countDownDate = new Date("May 30, 2025 12:00:00 UTC").getTime();
+function getMadridTime(dateString) {
+    return new Date(new Date(dateString).toLocaleString("en-US", { timeZone: "Europe/Madrid" }));
+}
+var countDownDate = getMadridTime("May 30, 2025 19:30:00").getTime();
+
 
 var x = setInterval(function () {
     var daysElement = document.getElementById("days");

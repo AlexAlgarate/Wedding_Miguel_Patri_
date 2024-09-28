@@ -1,11 +1,11 @@
 import reflex as rx
 
-from wedding import utils as utils
-from wedding.state import FormState
+from wedding.utils import utils as utils
 from wedding.views.confirmation.confirmation_form.components import (
     select_confirmation,
     text_area,
 )
+from wedding.views.confirmation.confirmation_form.state import FormState
 
 
 def select_confirm_companion() -> rx.Component:
