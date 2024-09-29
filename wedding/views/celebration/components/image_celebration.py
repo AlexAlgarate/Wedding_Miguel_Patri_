@@ -19,20 +19,14 @@ def image_celebration(image: str) -> rx.Component:
     """
 
     return rx.link(
-        rx.tooltip(
-            rx.image(
-                src=image,
-                box_shadow="""
+        rx.image(
+            src=image,
+            box_shadow="""
                 1px 1px 4px 1px rgba(0, 0, 0, 0.3)
                 """,
-                alt=utils.alt_image_celebration,
-                width="100%",
-            ),
-            label=utils.label_image_celebration,
-            open_delay=100,
-            direction="rtl",
-            placement="bottom",
+            alt=utils.alt_image_celebration,
+            width="100%",
         ),
-        href=urls.AGRIPINA_URL,
+        href=urls.MONTEALVAR_URL,
         is_external=True,
     )

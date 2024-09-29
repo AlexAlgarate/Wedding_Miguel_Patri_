@@ -22,7 +22,7 @@ def celebration() -> rx.Component:
         text_celebration(),
         secondary_button(
             button_name=utils.celebration_button,
-            url=urls.AGRIPINA_MAPS_URL,
+            url=urls.MONTEALVAR_MAPS_URL,
         ),
         align_self="stretch",
         gap="8px",

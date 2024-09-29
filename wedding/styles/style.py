@@ -43,7 +43,7 @@ BASE_STYLE = {
         "flex-direction": "column",
     },
     rx.input: {"background": ""},
-    rx.select: {"background": ""},
+    rx.select: {"background": "red"},
 }
 
 

@@ -4,18 +4,18 @@ from wedding.components import (
     farewell_message,
     flowers_between_section,
     lavender_flowers,
-    navbar,
 )
 from wedding.styles import style as style
 from wedding.utils import FileRoutes, utils
 from wedding.views import (
+    accomodation,
     bus_service,
     celebration,
     confirmation,
-    contact,
     countdown,
     google_photo,
     header,
+    navbar,
     wedding_gifts,
 )
 
@@ -41,9 +41,9 @@ def index() -> rx.Component:
                 confirmation(),
                 celebration(),
                 wedding_gifts(),
-                bus_service(),
                 flowers_between_section(),
-                contact(),
+                accomodation(),
+                bus_service(),
                 flowers_between_section(),
                 google_photo(),
                 gap="16px",

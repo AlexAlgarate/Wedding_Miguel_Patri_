@@ -147,14 +147,6 @@ def confirmation_form() -> rx.Component:
             ),
             on_submit=FormState.handle_submit,
         ),
-        rx.vstack(
-            rx.text("Results"),
-            rx.text(FormState.form_data.to_string()),
-            width="100%",
-            border_color="red",
-            border_width="5px",
-            max_width=style.MAX_WIDTH,
-        ),
         max_width=style.MAX_WIDTH,
         width="100%",
     )

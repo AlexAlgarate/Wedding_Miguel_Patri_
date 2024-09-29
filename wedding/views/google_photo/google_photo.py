@@ -23,7 +23,6 @@ def google_photo() -> rx.Component:
     return card(
         icon_section(icon=IconRoutes.ICON_CAMERA.value, alt=utils.alt_icon_camera),
         title_section(title=utils.title_photo),
-        text_section(text=utils.google_photo_text_one),
         text_section(text=utils.google_photo_text_two),
         main_button(
             button_name=utils.google_photo_button,

@@ -6,7 +6,7 @@ from wedding.styles import style
 app = rx.App(
     stylesheets=style.STYLESHEETS,
     theme=rx.theme(
-        appearance="dark",
+        appearance="light",
     ),
     style=style.BASE_STYLE,
 )
