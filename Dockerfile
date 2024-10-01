@@ -18,18 +18,15 @@ RUN apt-get update && apt-get install -y debian-keyring debian-archive-keyring a
     && apt-get install caddy
 
 # Crear un archivo de configuración de Caddy
-RUN echo "{
-    http_port 8000
-}
-:8000 {
-    reverse_proxy localhost:8000
-    route /_event* {
-        reverse_proxy * localhost:8000 {
-            header_up Host {host}
-            header_up Connection {>Connection}
-            header_up Upgrade {>Upgrade}
-        }
-    }
+RUN echo ":8000 { \
+    reverse_proxy localhost:8000 \
+    route /_event* { \
+        reverse_proxy * localhost:8000 { \
+            header_up Host {host} \
+            header_up Connection {>Connection} \
+            header_up Upgrade {>Upgrade} \
+        } \
+    } \
 }" > /etc/caddy/Caddyfile
 
 # Ejecutar reflex y Caddy
