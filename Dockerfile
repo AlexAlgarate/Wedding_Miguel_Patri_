@@ -11,13 +11,13 @@ RUN python3.11 -m venv $VIRTUAL_ENV
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
+
 RUN apt-get update && \
-    apt-get install -y curl debian-keyring debian-archive-keyring apt-transport-https && \
+    apt-get install -y apt-utils curl debian-keyring debian-archive-keyring apt-transport-https && \
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | tee /etc/apt/trusted.gpg.d/caddy-stable.asc && \
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list && \
     apt-get update && \
     apt-get install -y caddy
-
 # Crear un archivo de configuración de Caddy
 COPY Caddyfile /etc/caddy/Caddyfile
 
