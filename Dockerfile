@@ -11,9 +11,31 @@ RUN python3.11 -m venv $VIRTUAL_ENV
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y debian-keyring debian-archive-keyring apt-transport-https \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | tee /etc/apt/trusted.gpg.d/caddy-stable.asc \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list \
+    && apt-get update \
+    && apt-get install caddy
 
-RUN reflex init
-CMD reflex run --env prod --backend-only
+# Crear un archivo de configuración de Caddy
+RUN echo "{
+    http_port 8000
+}
+:8000 {
+    reverse_proxy localhost:8000
+    route /_event* {
+        reverse_proxy * localhost:8000 {
+            header_up Host {host}
+            header_up Connection {>Connection}
+            header_up Upgrade {>Upgrade}
+        }
+    }
+}" > /etc/caddy/Caddyfile
+
+# Ejecutar reflex y Caddy
+CMD caddy run --config /etc/caddy/Caddyfile & reflex run --env prod --backend-only
+# RUN reflex init
+# CMD reflex run --env prod --backend-only
 
 
 # This Dockerfile is used to deploy a simple single-container Reflex app instance.
