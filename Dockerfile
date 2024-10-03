@@ -77,5 +77,4 @@ COPY --chown=reflex --from=init /app /app
 STOPSIGNAL SIGKILL
 
 # Always apply migrations before starting the backend.
-CMD [ -d alembic ] && reflex db migrate; \
-    exec reflex run --env prod --backend-only
+CMD reflex run --env prod --backend-only
