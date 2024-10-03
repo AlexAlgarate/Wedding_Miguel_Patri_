@@ -1,25 +1,14 @@
-{
-    # Puerto que Caddy utilizará para servir la app
-    http_port 80
-    https_port 443
-}
+{$DOMAIN}
 
-# Nombre de dominio de tu frontend (puedes poner localhost si es local o tu dominio si lo tienes)
-wedding-miguel-patri-backend.vercel.app
-
-# Compresión gzip
 encode gzip
 
-# Rutas específicas que deben ser redirigidas al backend en Railway
-@backend_routes {
-    path /_event/* /ping /_upload /_upload/*
-}
-
-# Proxear estas rutas al backend de Railway
+@backend_routes path /_event/* /ping /_upload /_upload/*
 handle @backend_routes {
-    reverse_proxy https://weddingmiguelpatri.up.railway.app
+	reverse_proxy app:8000
 }
 
-# Servir archivos estáticos desde /srv (carpeta con archivos del frontend exportado por Reflex)
 root * /srv
-file_server
+route {
+	try_files {path} {path}/ /404.html
+	file_server
+}

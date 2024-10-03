@@ -22,29 +22,29 @@
 
 
 # Etapa 1: Construcción de la app con Reflex y Python
-FROM python:3.12 AS builder
+# FROM python:3.12 AS builder
 
-WORKDIR /app
+# WORKDIR /app
 
-# Copiar los archivos del proyecto
-COPY . .
+# # Copiar los archivos del proyecto
+# COPY . .
 
-# Instalar las dependencias del proyecto
-RUN pip install -r requirements.txt
+# # Instalar las dependencias del proyecto
+# RUN pip install -r requirements.txt
 
-# Exportar solo el frontend
-ENV API_URL="https://weddingmiguelpatri.up.railway.app"
-# RUN reflex export --frontend-only --no-zip
-RUN reflex init
-# Etapa 2: Configurar Nginx para servir el frontend y redirigir al backend
-FROM nginx
+# # Exportar solo el frontend
+# ENV API_URL="https://weddingmiguelpatri.up.railway.app"
+# # RUN reflex export --frontend-only --no-zip
+# RUN reflex init
+# # Etapa 2: Configurar Nginx para servir el frontend y redirigir al backend
+# FROM nginx
 
-# Copiar los archivos estáticos del frontend al directorio de Nginx
-COPY --from=builder /app/.web/_static /usr/share/nginx/html
+# # Copiar los archivos estáticos del frontend al directorio de Nginx
+# COPY --from=builder /app/.web/_static /usr/share/nginx/html
 
-# Copiar la configuración personalizada de Nginx
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-CMD reflex run --env prod --backend-only
+# # Copiar la configuración personalizada de Nginx
+# COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# CMD reflex run --env prod --backend-only
 
 # # Servir el frontend con Caddy
 # FROM caddy:alpine
@@ -83,3 +83,54 @@ CMD reflex run --env prod --backend-only
 # CMD [ -d alembic ] && reflex db migrate; \
 #     redis-server --daemonize yes && \
 #     exec reflex run --env prod --backend-only
+
+
+# This docker file is intended to be used with docker compose to deploy a production
+# instance of a Reflex app.
+
+# Stage 1: init
+FROM python:3.11 as init
+
+ARG uv=/root/.cargo/bin/uv
+
+# Install `uv` for faster package boostrapping
+ADD --chmod=755 https://astral.sh/uv/install.sh /install.sh
+RUN /install.sh && rm /install.sh
+
+# Copy local context to `/app` inside container (see .dockerignore)
+WORKDIR /app
+COPY . .
+RUN mkdir -p /app/data /app/uploaded_files
+
+# Create virtualenv which will be copied into final container
+ENV VIRTUAL_ENV=/app/.venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN $uv venv
+
+# Install app requirements and reflex inside virtualenv
+RUN $uv pip install -r requirements.txt
+
+# Deploy templates and prepare app
+RUN reflex init
+
+# Export static copy of frontend to /app/.web/_static
+RUN reflex export --frontend-only --no-zip
+
+# Copy static files out of /app to save space in backend image
+RUN mv .web/_static /tmp/_static
+RUN rm -rf .web && mkdir .web
+RUN mv /tmp/_static .web/_static
+
+# Stage 2: copy artifacts into slim image 
+FROM python:3.11-slim
+WORKDIR /app
+RUN adduser --disabled-password --home /app reflex
+COPY --chown=reflex --from=init /app /app
+
+
+# Needed until Reflex properly passes SIGTERM on backend.
+STOPSIGNAL SIGKILL
+
+# Always apply migrations before starting the backend.
+CMD [ -d alembic ] && reflex db migrate; \
+    exec reflex run --env prod --backend-only
