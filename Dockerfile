@@ -71,7 +71,8 @@ FROM python:3.11-slim
 WORKDIR /app
 RUN adduser --disabled-password --home /app reflex
 COPY --chown=reflex --from=init /app /app
-
+ENV VIRTUAL_ENV=/app/.venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Needed until Reflex properly passes SIGTERM on backend.
 STOPSIGNAL SIGKILL
