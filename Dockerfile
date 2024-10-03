@@ -34,8 +34,8 @@ RUN pip install -r requirements.txt
 
 # Exportar solo el frontend
 ENV API_URL="https://weddingmiguelpatri.up.railway.app"
-RUN reflex export --frontend-only --no-zip
-
+# RUN reflex export --frontend-only --no-zip
+RUN reflex init
 # Etapa 2: Configurar Nginx para servir el frontend y redirigir al backend
 FROM nginx
 
@@ -44,6 +44,7 @@ COPY --from=builder /app/.web/_static /usr/share/nginx/html
 
 # Copiar la configuración personalizada de Nginx
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+CMD reflex run --env prod --backend-only
 
 # # Servir el frontend con Caddy
 # FROM caddy:alpine
