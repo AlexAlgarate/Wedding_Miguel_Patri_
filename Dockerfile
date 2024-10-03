@@ -23,10 +23,12 @@
 
 # Stage 1: init
 FROM python:3.11 as init
-COPY .env /app/.env
 
-# Cargar variables de entorno desde el archivo .env
-ENV $(cat /app/.env | xargs)
+ARG PATRI_PHONE
+ARG MIGUEL_PHONE
+ARG ACCOUNT_NUMBER
+ARG SUPABASE_KEY
+ARG SUPABASE_URL
 
 ARG uv=/root/.cargo/bin/uv
 
@@ -51,6 +53,12 @@ RUN $uv pip install -r requirements.txt
 RUN reflex init
 
 # Export static copy of frontend to /app/.web/_static
+ENV PATRI_PHONE=${PATRI_PHONE}
+ENV MIGUEL_PHONE=${MIGUEL_PHONE}
+ENV ACCOUNT_NUMBER=${ACCOUNT_NUMBER}
+ENV SUPABASE_KEY=${SUPABASE_KEY}
+ENV SUPABASE_URL=${SUPABASE_URL}
+
 RUN reflex export --frontend-only --no-zip
 
 # Copy static files out of /app to save space in backend image
