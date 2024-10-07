@@ -19,10 +19,11 @@ RUN API_URL="https://wedding-miguel-patri-backend.vercel.app/"
 RUN reflex export --frontend-only --no-zip
 
 
-FROM nginx:latest
+FROM nginx
 
 
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
+# COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/.web/_static /usr/share/nginx/html
 
 # COPY --from=builder /app/.web/_static /usr/share/nginx/html
