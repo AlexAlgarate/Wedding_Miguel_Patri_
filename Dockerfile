@@ -24,7 +24,7 @@ FROM nginx
 
 COPY --from=builder /app/.web/_static /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
+CMD reflex run --env prod --backend-only
 # FROM python:3.11
 
 
