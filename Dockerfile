@@ -23,7 +23,7 @@ FROM nginx:latest
 
 
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/.web/_static /usr/share/nginx/html
+COPY --from=builder /app/.web/_static /usr/share/nginx/html
 
 # COPY --from=builder /app/.web/_static /usr/share/nginx/html
 # CMD reflex run --env prod --backend-only
