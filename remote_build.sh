@@ -5,6 +5,6 @@ isort wedding/
 black wedding/
 ruff check --fix wedding/
 reflex init
-API_URL=https://weddingmiguelpatri.up.railway.app:8000 reflex export --frontend-only
+API_URL=https://weddingmiguelpatri-production.up.railway.app:8000 reflex export --frontend-only
 unzip frontend.zip -d public
 rm -f frontend.zip
