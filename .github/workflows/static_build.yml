@@ -19,6 +19,7 @@ jobs:
       MIGUEL_PHONE: ${{ secrets.MIGUEL_PHONE }}
       SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      DOMAIN: ${{ secrets.DOMAIN }}
 
     steps:
       - name: Checkout repo
