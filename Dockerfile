@@ -22,8 +22,8 @@ RUN reflex export --frontend-only --no-zip
 FROM nginx
 
 
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/.web/_static /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # COPY --from=builder /app/.web/_static /usr/share/nginx/html
 # CMD reflex run --env prod --backend-only
